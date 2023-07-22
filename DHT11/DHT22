@@ -1,0 +1,43 @@
+#include <WiFi.h>
+#include "DHT.h" // Including the DHT library for using the DHT sensors.
+
+#define DHTPIN_11 26 // Define the pin number to which the DHT11 sensor is connected.
+#define DHTTYPE_11 DHT11 // Define the type of DHT sensor (DHT11 in this case).
+
+#define DHTPIN_22 27 // Define the pin number to which the DHT22 sensor is connected.
+#define DHTTYPE_22 DHT22 // Define the type of DHT sensor (DHT22 in this case).
+
+DHT dht11(DHTPIN_11, DHTTYPE_11); // Create an object of the DHT class for DHT11.
+DHT dht22(DHTPIN_22, DHTTYPE_22); // Create an object of the DHT class for DHT22.
+
+void setup() {
+  Serial.begin(115200); // Start serial communication with a baud rate of 115200 bits per second.
+  dht11.begin(); // Initialize the DHT11 sensor.
+  dht22.begin(); // Initialize the DHT22 sensor.
+}
+
+void loop() {
+  // Read data from DHT11 sensor
+  float h11 = dht11.readHumidity(); // Read the humidity value from the DHT11 sensor.
+  float t11 = dht11.readTemperature(); // Read the temperature value from the DHT11 sensor.
+
+  // Read data from DHT22 sensor
+  float h22 = dht22.readHumidity(); // Read the humidity value from the DHT22 sensor.
+  float t22 = dht22.readTemperature(); // Read the temperature value from the DHT22 sensor.
+
+  // Print data from DHT11 sensor
+  Serial.println("DHT11 - Humidity: "); // Print a label for the DHT11 humidity value.
+  Serial.println(h11); // Print the DHT11 humidity value.
+  Serial.println("DHT11 - Temperature: "); // Print a label for the DHT11 temperature value.
+  Serial.println(t11); // Print the DHT11 temperature value.
+  Serial.println("degree C"); // Print a label for the unit of temperature.
+
+  // Print data from DHT22 sensor
+  Serial.println("DHT22 - Humidity: "); // Print a label for the DHT22 humidity value.
+  Serial.println(h22); // Print the DHT22 humidity value.
+  Serial.println("DHT22 - Temperature: "); // Print a label for the DHT22 temperature value.
+  Serial.println(t22); // Print the DHT22 temperature value.
+  Serial.println("degree C"); // Print a label for the unit of temperature.
+
+  delay(1000); // Add a delay of 1000 milliseconds (1 second) before the next loop iteration.
+}
